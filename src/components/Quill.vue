@@ -26,23 +26,7 @@ export default {
             [
               'bold',
               'italic',
-              'underline',
-              'strike',
-              {'font': [] },
-              {'align': [] },
               'image'
-            ],
-            [
-              'blockquote',
-              'link',
-              { 'header': [1,2,3] },
-              { 'list': 'ordered' },
-              { 'list': 'bullet' },
-              { 'size': ['small', false, 'large', 'huge'] }
-            ],
-            [
-              { 'color': [] },
-              { 'background': [] }
             ],
           ],
           handlers: {
@@ -55,22 +39,21 @@ export default {
   },
   methods: {
     imageHandler() {
-      console.log('image handler event fired');
-      const input = document.createElement('input');
+      // instead of actually saving and returning the image url, i am just using this hard coded image url to simulate what an uploaded image would look like
       const testImg = 'https://files.simplifyingthemarket.com/wp-content/uploads/2022/03/17104811/20220321-KCM-Share-1.jpg';
+      // create input ele to call click method and open file browser
+      const input = document.createElement('input');
       input.setAttribute('type', 'file');
       input.click();
       input.onchange = () => {
-        const file = input.files[0];
-        // file type is only image.
-        if (/^image\//.test(file.type)) {
-          console.log('uploading image to server');
-          const range = this.quill.getSelection();
-          const resp = this.quill.insertEmbed(range.index, 'image', testImg);
-          this.quill.setSelection(range.index + 1);
-        } else {
-          console.warn('You could only upload images.');
-        }
+        // upload to server logic goes here
+        console.log('uploading image to server');
+        // use range index to insert new Delta at correct location
+        const range = this.quill.getSelection();
+        // insert new url
+        const resp = this.quill.insertEmbed(range.index, 'image', testImg);
+        // set cursor selection to after the image
+        this.quill.setSelection(range.index + 1);
       };
     },
     showContents() {
