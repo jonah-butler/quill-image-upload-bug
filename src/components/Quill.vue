@@ -1,6 +1,7 @@
 <template>
   <div id="editor"></div>
   <button @click="showContents">See Contents</button>
+  <button @click="embedNewText">Insert Image</button>
 </template>
 
 <script>
@@ -59,6 +60,12 @@ export default {
     showContents() {
       console.log(this.quill.root.innerHTML)
     },
+    embedNewText() {
+      const testImg = 'https://files.simplifyingthemarket.com/wp-content/uploads/2022/03/17104811/20220321-KCM-Share-1.jpg';
+      const range = this.quill.getLength();
+      this.quill.insertEmbed(range, 'image', testImg);
+      this.quill.setSelection(this.quill.getLength() + 1)
+    }
   }
 }
 </script>
